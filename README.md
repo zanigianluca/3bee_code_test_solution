@@ -1,4 +1,4 @@
-# code_test_pollinator_abundance# Pollinator Abundance Project
+# Pollinator Abundance Project
 
 This project analyzes pollinator abundance and suitability within specified geographical areas. It calculates various Key Performance Indicators (KPIs) related to pollinators, such as Pollinator Abundance (PA), Nesting Suitability (NS), Floral Availability (FA), Nectar Potential (NP), and Mean Species Abundance (MSA), based on Corine Land Cover (CLC) data and specific bee species characteristics.
 
