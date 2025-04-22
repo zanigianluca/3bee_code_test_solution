@@ -10,14 +10,15 @@ ENV_NAME="pollinator_abundance" # You can keep this for descriptive messages
 # Default target
 .DEFAULT_GOAL := help
 
-.PHONY: help
+# Phony targets definition
+.PHONY: help venv show fmt run clean
+
 help: ## Show this help message.
 	@echo "Usage: make <target>"
 	@echo ""
 	@echo "Available targets:"
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
-.PHONY: venv
 venv: ## Create .venv (Python 3.11) if missing, install package editable.
 	@if [ ! -d .venv ]; then \
 		echo "Creating Python 3.11 virtual environment '.venv' using uv..."; \
@@ -30,7 +31,6 @@ venv: ## Create .venv (Python 3.11) if missing, install package editable.
 	@uv pip install -e .
 	@echo "Editable install complete. Use 'make show' to see details."
 
-.PHONY: show
 show: venv ## Show details about the current uv-managed environment.
 	@echo "Current $(ENV_NAME) environment (managed by uv):"
 	@echo "uv version:"
@@ -40,7 +40,6 @@ show: venv ## Show details about the current uv-managed environment.
 	@echo "Installed packages:"
 	@uv pip list
 
-.PHONY: fmt
 fmt: venv ## Format, lint, and type-check code using uv run.
 	@echo "Running formatters, linters, and type checkers via 'uv run'..."
 	@echo "--- Formatting (ruff format) ---"
@@ -51,7 +50,10 @@ fmt: venv ## Format, lint, and type-check code using uv run.
 	@uv run mypy src/pollinator_abundance/
 	@echo "Formatting, linting, and type checking complete."
 
-.PHONY: clean
+run: venv ## Run the main application script.
+	@echo "Running the main application script (src/pollinator_abundance/main.py) using uv run..."
+	@uv run python src/pollinator_abundance/main.py
+
 clean: ## Remove the .venv directory.
 	@echo "Removing .venv directory..."
 	@rm -rf .venv
