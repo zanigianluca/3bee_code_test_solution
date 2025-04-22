@@ -18,14 +18,17 @@ help: ## Show this help message.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
 .PHONY: venv
-venv: ## Create the .venv virtual environment using uv if it doesn't exist.
+venv: ## Create .venv (Python 3.11) if missing, install package editable.
 	@if [ ! -d .venv ]; then \
-		echo "Creating virtual environment '.venv' using uv..."; \
-		uv venv; \
-		echo "Virtual environment created. Install dependencies with 'make env_requirements'"; \
+		echo "Creating Python 3.11 virtual environment '.venv' using uv..."; \
+		uv venv -p 3.11 || { echo "Error: Failed to create venv with Python 3.11. Ensure Python 3.11 is available to uv."; exit 1; }; \
+		echo "Virtual environment created."; \
 	else \
 		echo "Virtual environment '.venv' already exists."; \
 	fi
+	@echo "Installing local package in editable mode (pip install -e .)..."
+	@uv pip install -e .
+	@echo "Editable install complete. Use 'make show' to see details."
 
 .PHONY: show
 show: venv ## Show details about the current uv-managed environment.
