@@ -142,5 +142,5 @@ def kpi_elements_generation(
         value_text=value_text_roi,
         cbar_digits=cbar_digits,
     )
-
-    return None
+    print(f"KPI: {kpi}, value ROI: {value_roi}, value_ca: {value_ca}")
+    return None, value_roi, value_ca
