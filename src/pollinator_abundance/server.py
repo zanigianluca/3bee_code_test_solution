@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .handler import pollinator_abundance_calculation
+from .handler import pollinator_abundance_calculation, pollinator_abundance_calculation_V2
 
 app = FastAPI()
 
@@ -15,5 +15,5 @@ async def calculate():
 
 @app.get("/calculate_all_kpis")
 async def calculate():
-    result = pollinator_abundance_calculation()
-    return result["result_values"]
+    resultv1 = pollinator_abundance_calculation()
+    resultv2 = pollinator_abundance_calculation_V2()

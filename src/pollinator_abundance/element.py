@@ -243,4 +243,4 @@ def kpi_elements_generation_V2(config: KPIConfig):
         cbar_digits=config.cbar_digits,
     )
     print(f"KPI: {config.kpi}, value ROI: {config.value_roi}, value_ca: {config.value_ca}")
-    return None, config.value_roi, config.value_ca
+    return None, config.value_roi, config.value_ca, config.kpi

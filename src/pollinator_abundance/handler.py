@@ -146,21 +146,21 @@ def pa_single_bee_roi_ca(event, context):
 
 
 def lambda_bee(
-    plantation_id,
-    bee,
-    clc_values_roi,
-    clc_values_ca,
-    roi,
-    ca,
-    ratio_x,
-    ratio_y,
-    min_res,
-    image_url_fa,
-    ns_columns=NS_COLUMNS,
-    multicore=0,
-    plantations_polygons_id=0,
-    override=True,
-    how="lambda",
+        plantation_id,
+        bee,
+        clc_values_roi,
+        clc_values_ca,
+        roi,
+        ca,
+        ratio_x,
+        ratio_y,
+        min_res,
+        image_url_fa,
+        ns_columns=NS_COLUMNS,
+        multicore=0,
+        plantations_polygons_id=0,
+        override=True,
+        how="lambda",
 ):
     print(f"Performing lambda_bee for bee {bee['SPECIES']}")
     lambda_payload = {
@@ -985,7 +985,6 @@ def pollinator_abundance_calculation():
     return dict_of_results
 
 
-
 def pollinator_abundance_calculation_V2():
     """Main function to calculate the Pollinator Abundance (PA) and Nectar Potential (NP) for a given plantation and ROI."""
     start_lt = time.time()
@@ -1168,203 +1167,203 @@ def pollinator_abundance_calculation_V2():
 
         if not compute_only_msa:
             clc = KPIConfig(roi_id=roi["id"],
-                    ca_id=ca["id"],
-                    kpi="clc",
-                    result_values=None,
-                    image_all=image_all,
-                    mask_roi=mask_roi_field,
-                    mask_ca=mask_ca,
-                    ref_array=None,
-                    palette=None,
-                    report_palette=None,
-                    units="",
-                    palette_min=0,
-                    palette_max=100,
-                    clc_values_roi=None,
-                    clc_values_ca=None,
-                    input_image_roi=None,
-                    input_image_ca=None,
-                    alignment_point_x=None,
-                    alignment_point_y=None,
-                    speed_factor=None,
-                    max_val=None,
-                    webp_img=True,
-                    webp_report=True,
-                    filename="clc",
-                    title_report="Corine Land Cover",
-                    title_bar="CLC",
-                    width_km_ca=width_km_ca,
-                    height_km_ca=height_km_ca,
-                    width_km_roi=width_km_roi,
-                    height_km_roi=height_km_roi,
-                    bounding_box_roi=bounding_box_roi,
-                    site_pixel_polygons=site_pixel_polygons,
-                    filename_report="clc_report",
-                    report_ext="",
-                    value_roi=None,
-                    value_ca=None,
-                    min_array_val=0,
-                    cbar_digits=1)
+                            ca_id=ca["id"],
+                            kpi="clc",
+                            result_values=None,
+                            image_all=image_all,
+                            mask_roi=mask_roi_field,
+                            mask_ca=mask_ca,
+                            ref_array=None,
+                            palette=None,
+                            report_palette=None,
+                            units="",
+                            palette_min=0,
+                            palette_max=100,
+                            clc_values_roi=None,
+                            clc_values_ca=None,
+                            input_image_roi=None,
+                            input_image_ca=None,
+                            alignment_point_x=None,
+                            alignment_point_y=None,
+                            speed_factor=None,
+                            max_val=None,
+                            webp_img=True,
+                            webp_report=True,
+                            filename="clc",
+                            title_report="Corine Land Cover",
+                            title_bar="CLC",
+                            width_km_ca=width_km_ca,
+                            height_km_ca=height_km_ca,
+                            width_km_roi=width_km_roi,
+                            height_km_roi=height_km_roi,
+                            bounding_box_roi=bounding_box_roi,
+                            site_pixel_polygons=site_pixel_polygons,
+                            filename_report="clc_report",
+                            report_ext="",
+                            value_roi=None,
+                            value_ca=None,
+                            min_array_val=0,
+                            cbar_digits=1)
 
             na = KPIConfig(roi_id=roi["id"],
-                    ca_id=ca["id"],
-                    kpi="np",
-                    result_values=result_values,
-                    image_all=None,
-                    mask_roi=mask_roi_field,
-                    mask_ca=mask_ca,
-                    ref_array=array_pn,
-                    palette=PALETTE_PN,
-                    report_palette=linear_gradient(PALETTE_PN, n=256)[::-1],
-                    units="kg/ha/year",
-                    palette_min=0,
-                    palette_max=250,
-                    clc_values_roi=None,
-                    clc_values_ca=None,
-                    input_image_roi=None,
-                    input_image_ca=None,
-                    alignment_point_x=None,
-                    alignment_point_y=None,
-                    speed_factor=1,
-                    max_val=2,
-                    webp_img=False,
-                    webp_report=True,
-                    filename="np",
-                    title_report="Nectariferous Potential (NP)",
-                    title_bar="NP",
-                    width_km_ca=width_km_ca,
-                    height_km_ca=height_km_ca,
-                    width_km_roi=width_km_roi,
-                    height_km_roi=height_km_roi,
-                    bounding_box_roi=bounding_box_roi,
-                    site_pixel_polygons=site_pixel_polygons,
-                    filename_report="pn_report",
-                    report_ext="",
-                    value_roi=None,
-                    value_ca=None,
-                    min_array_val=0,
-                    cbar_digits=1)
+                           ca_id=ca["id"],
+                           kpi="np",
+                           result_values=result_values,
+                           image_all=None,
+                           mask_roi=mask_roi_field,
+                           mask_ca=mask_ca,
+                           ref_array=array_pn,
+                           palette=PALETTE_PN,
+                           report_palette=linear_gradient(PALETTE_PN, n=256)[::-1],
+                           units="kg/ha/year",
+                           palette_min=0,
+                           palette_max=250,
+                           clc_values_roi=None,
+                           clc_values_ca=None,
+                           input_image_roi=None,
+                           input_image_ca=None,
+                           alignment_point_x=None,
+                           alignment_point_y=None,
+                           speed_factor=1,
+                           max_val=2,
+                           webp_img=False,
+                           webp_report=True,
+                           filename="np",
+                           title_report="Nectariferous Potential (NP)",
+                           title_bar="NP",
+                           width_km_ca=width_km_ca,
+                           height_km_ca=height_km_ca,
+                           width_km_roi=width_km_roi,
+                           height_km_roi=height_km_roi,
+                           bounding_box_roi=bounding_box_roi,
+                           site_pixel_polygons=site_pixel_polygons,
+                           filename_report="pn_report",
+                           report_ext="",
+                           value_roi=None,
+                           value_ca=None,
+                           min_array_val=0,
+                           cbar_digits=1)
 
             fa = KPIConfig(roi_id=roi["id"],
-                    ca_id=ca["id"],
-                    kpi="fa",
-                    result_values=result_values,
-                    image_all=None,
-                    mask_roi=mask_roi_field,
-                    mask_ca=mask_ca,
-                    ref_array=None,
-                    report_palette=linear_gradient(PALETTE_INPUT, n=256)[::-1],
-                    units="N",
-                    palette_min=0,
-                    palette_max=1,
-                    clc_values_roi=clc_values_roi,
-                    clc_values_ca=clc_values_ca,
-                    speed_factor=1,
-                    max_val=255,
-                    palette=PALETTE_INPUT,
-                    webp_img=False,
-                    webp_report=True,
-                    input_image_roi=np_image_roi,
-                    input_image_ca=np_image_ca,
-                    alignment_point_x=alignment_point_x,
-                    alignment_point_y=alignment_point_y,
-                    filename="fa",
-                    title_report="Pollinator Foraging Activity (FA)",
-                    title_bar="FA",
-                    width_km_ca=width_km_ca,
-                    height_km_ca=height_km_ca,
-                    width_km_roi=width_km_roi,
-                    height_km_roi=height_km_roi,
-                    bounding_box_roi=bounding_box_roi,
-                    site_pixel_polygons=site_pixel_polygons,
-                    filename_report="fa_report",
-                    report_ext=".webp",
-                    value_roi=None,
-                    value_ca=None,
-                    min_array_val=0,
-                    cbar_digits=1)
+                           ca_id=ca["id"],
+                           kpi="fa",
+                           result_values=result_values,
+                           image_all=None,
+                           mask_roi=mask_roi_field,
+                           mask_ca=mask_ca,
+                           ref_array=None,
+                           report_palette=linear_gradient(PALETTE_INPUT, n=256)[::-1],
+                           units="N",
+                           palette_min=0,
+                           palette_max=1,
+                           clc_values_roi=clc_values_roi,
+                           clc_values_ca=clc_values_ca,
+                           speed_factor=1,
+                           max_val=255,
+                           palette=PALETTE_INPUT,
+                           webp_img=False,
+                           webp_report=True,
+                           input_image_roi=np_image_roi,
+                           input_image_ca=np_image_ca,
+                           alignment_point_x=alignment_point_x,
+                           alignment_point_y=alignment_point_y,
+                           filename="fa",
+                           title_report="Pollinator Foraging Activity (FA)",
+                           title_bar="FA",
+                           width_km_ca=width_km_ca,
+                           height_km_ca=height_km_ca,
+                           width_km_roi=width_km_roi,
+                           height_km_roi=height_km_roi,
+                           bounding_box_roi=bounding_box_roi,
+                           site_pixel_polygons=site_pixel_polygons,
+                           filename_report="fa_report",
+                           report_ext=".webp",
+                           value_roi=None,
+                           value_ca=None,
+                           min_array_val=0,
+                           cbar_digits=1)
 
             kpi_configs.append(clc)
             kpi_configs.append(fa)
             kpi_configs.append(na)
 
         msa = KPIConfig(roi_id=roi["id"],
-                ca_id=ca["id"],
-                kpi="msa",
-                result_values=result_values,
-                image_all=None,
-                mask_roi=mask_roi_field,
-                mask_ca=mask_ca,
-                ref_array=None,
-                report_palette=linear_gradient(PALETTE_BLACK_RED_GREEN, n=256)[::-1],
-                units="N",
-                palette_min=0,
-                palette_max=1,
-                clc_values_roi=clc_values_roi,
-                clc_values_ca=clc_values_ca,
-                speed_factor=1,
-                max_val=255,
-                palette=PALETTE_BLACK_RED_GREEN,
-                webp_img=True,
-                webp_report=True,
-                input_image_roi=np_image_roi,
-                input_image_ca=np_image_ca,
-                alignment_point_x=alignment_point_x,
-                alignment_point_y=alignment_point_y,
-                filename="msa",
-                title_report="Mean Species Abundance (MSA)",
-                title_bar="MSA",
-                width_km_ca=width_km_ca,
-                height_km_ca=height_km_ca,
-                width_km_roi=width_km_roi,
-                height_km_roi=height_km_roi,
-                bounding_box_roi=bounding_box_roi,
-                site_pixel_polygons=site_pixel_polygons,
-                filename_report="msa_report",
-                report_ext=".webp",
-                value_roi=None,
-                value_ca=None,
-                min_array_val=0,
-                cbar_digits=1)
+                        ca_id=ca["id"],
+                        kpi="msa",
+                        result_values=result_values,
+                        image_all=None,
+                        mask_roi=mask_roi_field,
+                        mask_ca=mask_ca,
+                        ref_array=None,
+                        report_palette=linear_gradient(PALETTE_BLACK_RED_GREEN, n=256)[::-1],
+                        units="N",
+                        palette_min=0,
+                        palette_max=1,
+                        clc_values_roi=clc_values_roi,
+                        clc_values_ca=clc_values_ca,
+                        speed_factor=1,
+                        max_val=255,
+                        palette=PALETTE_BLACK_RED_GREEN,
+                        webp_img=True,
+                        webp_report=True,
+                        input_image_roi=np_image_roi,
+                        input_image_ca=np_image_ca,
+                        alignment_point_x=alignment_point_x,
+                        alignment_point_y=alignment_point_y,
+                        filename="msa",
+                        title_report="Mean Species Abundance (MSA)",
+                        title_bar="MSA",
+                        width_km_ca=width_km_ca,
+                        height_km_ca=height_km_ca,
+                        width_km_roi=width_km_roi,
+                        height_km_roi=height_km_roi,
+                        bounding_box_roi=bounding_box_roi,
+                        site_pixel_polygons=site_pixel_polygons,
+                        filename_report="msa_report",
+                        report_ext=".webp",
+                        value_roi=None,
+                        value_ca=None,
+                        min_array_val=0,
+                        cbar_digits=1)
 
         msa_lu_animals = KPIConfig(roi_id=roi["id"],
-                ca_id=ca["id"],
-                kpi="msa_lu_animals",
-                result_values=result_values,
-                image_all=None,
-                mask_roi=mask_roi_field,
-                mask_ca=mask_ca,
-                ref_array=None,
-                report_palette=linear_gradient(PALETTE_BLACK_RED_GREEN, n=256)[::-1],
-                units="N",
-                palette_min=0,
-                palette_max=1,
-                clc_values_roi=clc_values_roi,
-                clc_values_ca=clc_values_ca,
-                speed_factor=1,
-                max_val=255,
-                palette=PALETTE_BLACK_RED_GREEN,
-                webp_img=True,
-                webp_report=True,
-                input_image_roi=np_image_roi,
-                input_image_ca=np_image_ca,
-                alignment_point_x=alignment_point_x,
-                alignment_point_y=alignment_point_y,
-                filename="msa_lu_animals",
-                title_report="Mean Species Abundance for Land Use (MSA_LU) - Animals",
-                title_bar="MSA_LU",
-                width_km_ca=width_km_ca,
-                height_km_ca=height_km_ca,
-                width_km_roi=width_km_roi,
-                height_km_roi=height_km_roi,
-                bounding_box_roi=bounding_box_roi,
-                site_pixel_polygons=site_pixel_polygons,
-                filename_report="msa_lu_animals_report",
-                report_ext=".webp",
-                value_roi=None,
-                value_ca=None,
-                min_array_val=0,
-                cbar_digits=1)
+                                   ca_id=ca["id"],
+                                   kpi="msa_lu_animals",
+                                   result_values=result_values,
+                                   image_all=None,
+                                   mask_roi=mask_roi_field,
+                                   mask_ca=mask_ca,
+                                   ref_array=None,
+                                   report_palette=linear_gradient(PALETTE_BLACK_RED_GREEN, n=256)[::-1],
+                                   units="N",
+                                   palette_min=0,
+                                   palette_max=1,
+                                   clc_values_roi=clc_values_roi,
+                                   clc_values_ca=clc_values_ca,
+                                   speed_factor=1,
+                                   max_val=255,
+                                   palette=PALETTE_BLACK_RED_GREEN,
+                                   webp_img=True,
+                                   webp_report=True,
+                                   input_image_roi=np_image_roi,
+                                   input_image_ca=np_image_ca,
+                                   alignment_point_x=alignment_point_x,
+                                   alignment_point_y=alignment_point_y,
+                                   filename="msa_lu_animals",
+                                   title_report="Mean Species Abundance for Land Use (MSA_LU) - Animals",
+                                   title_bar="MSA_LU",
+                                   width_km_ca=width_km_ca,
+                                   height_km_ca=height_km_ca,
+                                   width_km_roi=width_km_roi,
+                                   height_km_roi=height_km_roi,
+                                   bounding_box_roi=bounding_box_roi,
+                                   site_pixel_polygons=site_pixel_polygons,
+                                   filename_report="msa_lu_animals_report",
+                                   report_ext=".webp",
+                                   value_roi=None,
+                                   value_ca=None,
+                                   min_array_val=0,
+                                   cbar_digits=1)
 
         msa_lu_plants = KPIConfig(
             roi_id=roi["id"],
@@ -1413,22 +1412,43 @@ def pollinator_abundance_calculation_V2():
 
         # CALCULATE KPIS
 
-        for config in kpi_configs:
-            try:
-                _, value_roi, value_ca = kpi_elements_generation_V2(config)
+        # for config in kpi_configs:
+        #     try:
+        #         _, value_roi, value_ca = kpi_elements_generation_V2(config)
+        #
+        #         if config.kpi != "clc":
+        #             result_values["CA"][config.kpi.upper()] = value_ca
+        #             result_values["ROI"][config.kpi.upper()] = value_roi
+        #             if value_roi and value_ca:
+        #                 result_values["Delta"][config.kpi.upper()] = value_ca - value_roi
+        #
+        #         mex = f"Created {config.kpi} images"
+        #         print(mex)
+        #
+        #     except Exception as e:
+        #         raise e
 
-                if config.kpi != "clc":
-                    result_values["CA"][config.kpi.upper()] = value_ca
-                    result_values["ROI"][config.kpi.upper()] = value_roi
-                    if value_roi and value_ca:
-                        result_values["Delta"][config.kpi.upper()] = value_ca - value_roi
+        max_threads = 2
+        with ThreadPoolExecutor(max_workers=max_threads) as executor:
+            futures = [
+                executor.submit(kpi_elements_generation_V2, config)
+                for config in kpi_configs
+            ]
+            for future in futures:
+                try:
+                    _, value_roi, value_ca, kpi = future.result()
 
-                mex = f"Created {config.kpi} images"
-                print(mex)
+                    if kpi != "clc":
+                        result_values["CA"][kpi.upper()] = value_ca
+                        result_values["ROI"][kpi.upper()] = value_roi
+                        if value_roi and value_ca:
+                            result_values["Delta"][kpi.upper()] = value_ca - value_roi
 
-            except Exception as e:
-                raise e
+                    mex = f"Created {kpi} images"
+                    print(mex)
 
+                except Exception as e:
+                    raise e
 
         # Section #3
 
@@ -1517,43 +1537,43 @@ def pollinator_abundance_calculation_V2():
                 )
 
                 pa_x = KPIConfig(roi_id=roi["id"],
-                    ca_id=ca["id"],
-                    kpi=f"pa_{ns}",
-                    result_values=None,
-                    image_all=None,
-                    mask_roi=mask_roi_field,
-                    mask_ca=mask_ca,
-                    ref_array=pa_bee_image_n_normalized,
-                    report_palette=linear_gradient(PALETTE_INPUT, n=256)[::-1],
-                    units="N",
-                    palette_min=0,
-                    palette_max=0.4,
-                    clc_values_roi=None,
-                    clc_values_ca=None,
-                    speed_factor=1,
-                    max_val=255 * 2.5,
-                    palette=PALETTE_INPUT,
-                    webp_img=True,
-                    webp_report=True,
-                    input_image_roi=None,
-                    input_image_ca=None,
-                    alignment_point_x=None,
-                    alignment_point_y=None,
-                    filename=f"pa_{ns}.png",
-                    title_report=f"{NS_COLUMNS_PA[i]} (PA)",
-                    title_bar="PA",
-                    width_km_ca=width_km_ca,
-                    height_km_ca=height_km_ca,
-                    width_km_roi=width_km_roi,
-                    height_km_roi=height_km_roi,
-                    bounding_box_roi=bounding_box_roi,
-                    site_pixel_polygons=site_pixel_polygons,
-                    filename_report=f"{ns}_pa_report",
-                    report_ext=".webp",
-                    value_roi=None,
-                    value_ca=None,
-                    min_array_val=0,
-                    cbar_digits=1)
+                                 ca_id=ca["id"],
+                                 kpi=f"pa_{ns}",
+                                 result_values=None,
+                                 image_all=None,
+                                 mask_roi=mask_roi_field,
+                                 mask_ca=mask_ca,
+                                 ref_array=pa_bee_image_n_normalized,
+                                 report_palette=linear_gradient(PALETTE_INPUT, n=256)[::-1],
+                                 units="N",
+                                 palette_min=0,
+                                 palette_max=0.4,
+                                 clc_values_roi=None,
+                                 clc_values_ca=None,
+                                 speed_factor=1,
+                                 max_val=255 * 2.5,
+                                 palette=PALETTE_INPUT,
+                                 webp_img=True,
+                                 webp_report=True,
+                                 input_image_roi=None,
+                                 input_image_ca=None,
+                                 alignment_point_x=None,
+                                 alignment_point_y=None,
+                                 filename=f"pa_{ns}.png",
+                                 title_report=f"{NS_COLUMNS_PA[i]} (PA)",
+                                 title_bar="PA",
+                                 width_km_ca=width_km_ca,
+                                 height_km_ca=height_km_ca,
+                                 width_km_roi=width_km_roi,
+                                 height_km_roi=height_km_roi,
+                                 bounding_box_roi=bounding_box_roi,
+                                 site_pixel_polygons=site_pixel_polygons,
+                                 filename_report=f"{ns}_pa_report",
+                                 report_ext=".webp",
+                                 value_roi=None,
+                                 value_ca=None,
+                                 min_array_val=0,
+                                 cbar_digits=1)
 
                 ns_images_n_normalized = ns_images[ns] / total_ns_count[ns]  # type: ignore[operator]
 
@@ -1562,52 +1582,63 @@ def pollinator_abundance_calculation_V2():
                 )
 
                 ns_x = KPIConfig(roi_id=roi["id"],
-                    ca_id=ca["id"],
-                    kpi=f"ns_{ns}",
-                    result_values=None,
-                    image_all=None,
-                    mask_roi=mask_roi_field,
-                    mask_ca=mask_ca,
-                    ref_array=ns_images_n_normalized,
-                    report_palette=linear_gradient(PALETTE_INPUT, n=256)[::-1],
-                    units="N",
-                    palette_min=0,
-                    palette_max=0.5,
-                    clc_values_roi=None,
-                    clc_values_ca=None,
-                    speed_factor=1,
-                    max_val=255 * 2,
-                    palette=PALETTE_INPUT,
-                    webp_img=True,
-                    webp_report=True,
-                    input_image_roi=None,
-                    input_image_ca=None,
-                    alignment_point_x=None,
-                    alignment_point_y=None,
-                    filename=f"ns_{ns}.png",
-                    title_report=f"{NS_COLUMNS_PA[i]} (NS)",
-                    title_bar="NS",
-                    width_km_ca=width_km_ca,
-                    height_km_ca=height_km_ca,
-                    width_km_roi=width_km_roi,
-                    height_km_roi=height_km_roi,
-                    bounding_box_roi=bounding_box_roi,
-                    site_pixel_polygons=site_pixel_polygons,
-                    filename_report=f"{ns}_ns_report",
-                    report_ext=".webp",
-                    value_roi=None,
-                    value_ca=None,
-                    min_array_val=0,
-                    cbar_digits=1)
+                                 ca_id=ca["id"],
+                                 kpi=f"ns_{ns}",
+                                 result_values=None,
+                                 image_all=None,
+                                 mask_roi=mask_roi_field,
+                                 mask_ca=mask_ca,
+                                 ref_array=ns_images_n_normalized,
+                                 report_palette=linear_gradient(PALETTE_INPUT, n=256)[::-1],
+                                 units="N",
+                                 palette_min=0,
+                                 palette_max=0.5,
+                                 clc_values_roi=None,
+                                 clc_values_ca=None,
+                                 speed_factor=1,
+                                 max_val=255 * 2,
+                                 palette=PALETTE_INPUT,
+                                 webp_img=True,
+                                 webp_report=True,
+                                 input_image_roi=None,
+                                 input_image_ca=None,
+                                 alignment_point_x=None,
+                                 alignment_point_y=None,
+                                 filename=f"ns_{ns}.png",
+                                 title_report=f"{NS_COLUMNS_PA[i]} (NS)",
+                                 title_bar="NS",
+                                 width_km_ca=width_km_ca,
+                                 height_km_ca=height_km_ca,
+                                 width_km_roi=width_km_roi,
+                                 height_km_roi=height_km_roi,
+                                 bounding_box_roi=bounding_box_roi,
+                                 site_pixel_polygons=site_pixel_polygons,
+                                 filename_report=f"{ns}_ns_report",
+                                 report_ext=".webp",
+                                 value_roi=None,
+                                 value_ca=None,
+                                 min_array_val=0,
+                                 cbar_digits=1)
 
                 kpi_configs.append(pa_x)
                 kpi_configs.append(ns_x)
 
-                for config in kpi_configs:
-                    try:
-                        _, value_roi, value_ca = kpi_elements_generation_V2(config)
-                    except Exception as e:
-                        raise e
+                # for config in kpi_configs:
+                #     try:
+                #         _, value_roi, value_ca, __ = kpi_elements_generation_V2(config)
+                #     except Exception as e:
+                #         raise e
+
+                with ThreadPoolExecutor(max_workers=max_threads) as executor:
+                    futures = [
+                        executor.submit(kpi_elements_generation_V2, config)
+                        for config in kpi_configs
+                    ]
+                    for future in futures:
+                        try:
+                            _, value_roi, value_ca, __ = future.result()
+                        except Exception as e:
+                            raise e
 
                 mex = f"Creating NS and PA: step {idx + 1}/{total_ns_pa_cycle}"
                 print(mex)
@@ -1624,100 +1655,121 @@ def pollinator_abundance_calculation_V2():
 
             kpi_configs = []
             pa = KPIConfig(roi_id=roi["id"],
-                    ca_id=ca["id"],
-                    kpi="pa",
-                    result_values=result_values,
-                    image_all=None,
-                    mask_roi=mask_roi_field,
-                    mask_ca=mask_ca,
-                    ref_array=pa_image_total_normalized,
-                    report_palette=linear_gradient(PALETTE_INPUT, n=256)[::-1],
-                    units="N",
-                    palette_min=0,
-                    palette_max=0.4,
-                    clc_values_roi=None,
-                    clc_values_ca=None,
-                    speed_factor=1,
-                    max_val=255 * 2.5,
-                    palette=PALETTE_INPUT,
-                    webp_img=True,
-                    webp_report=True,
-                    input_image_roi=None,
-                    input_image_ca=None,
-                    alignment_point_x=None,
-                    alignment_point_y=None,
-                    filename="PA_TOTAL.png",
-                    title_report="Pollinator Abundance (PA)",
-                    title_bar="PA",
-                    width_km_ca=width_km_ca,
-                    height_km_ca=height_km_ca,
-                    width_km_roi=width_km_roi,
-                    height_km_roi=height_km_roi,
-                    bounding_box_roi=bounding_box_roi,
-                    site_pixel_polygons=site_pixel_polygons,
-                    filename_report="pa_report",
-                    report_ext=".webp",
-                    value_roi=None,
-                    value_ca=None,
-                    min_array_val=0,
-                    cbar_digits=1)
+                           ca_id=ca["id"],
+                           kpi="pa",
+                           result_values=result_values,
+                           image_all=None,
+                           mask_roi=mask_roi_field,
+                           mask_ca=mask_ca,
+                           ref_array=pa_image_total_normalized,
+                           report_palette=linear_gradient(PALETTE_INPUT, n=256)[::-1],
+                           units="N",
+                           palette_min=0,
+                           palette_max=0.4,
+                           clc_values_roi=None,
+                           clc_values_ca=None,
+                           speed_factor=1,
+                           max_val=255 * 2.5,
+                           palette=PALETTE_INPUT,
+                           webp_img=True,
+                           webp_report=True,
+                           input_image_roi=None,
+                           input_image_ca=None,
+                           alignment_point_x=None,
+                           alignment_point_y=None,
+                           filename="PA_TOTAL.png",
+                           title_report="Pollinator Abundance (PA)",
+                           title_bar="PA",
+                           width_km_ca=width_km_ca,
+                           height_km_ca=height_km_ca,
+                           width_km_roi=width_km_roi,
+                           height_km_roi=height_km_roi,
+                           bounding_box_roi=bounding_box_roi,
+                           site_pixel_polygons=site_pixel_polygons,
+                           filename_report="pa_report",
+                           report_ext=".webp",
+                           value_roi=None,
+                           value_ca=None,
+                           min_array_val=0,
+                           cbar_digits=1)
 
             ns_image_total_normalized = ns_images_total / total_bee
             dict_of_results["ns_image_total_normalized"] = ns_image_total_normalized
 
             ns = KPIConfig(roi_id=roi["id"],
-                    ca_id=ca["id"],
-                    kpi="ns",
-                    result_values=result_values,
-                    image_all=None,
-                    mask_roi=mask_roi_field,
-                    mask_ca=mask_ca,
-                    ref_array=ns_image_total_normalized,
-                    report_palette=linear_gradient(PALETTE_INPUT, n=256)[::-1],
-                    units="N",
-                    palette_min=0,
-                    palette_max=0.5,
-                    clc_values_roi=None,
-                    clc_values_ca=None,
-                    speed_factor=1,
-                    max_val=255 * 2.5,
-                    palette=PALETTE_INPUT,
-                    webp_img=True,
-                    webp_report=True,
-                    input_image_roi=None,
-                    input_image_ca=None,
-                    alignment_point_x=None,
-                    alignment_point_y=None,
-                    filename="ns_total.png",
-                    title_report="Nesting Suitability (NS)",
-                    title_bar="NS",
-                    width_km_ca=width_km_ca,
-                    height_km_ca=height_km_ca,
-                    width_km_roi=width_km_roi,
-                    height_km_roi=height_km_roi,
-                    bounding_box_roi=bounding_box_roi,
-                    site_pixel_polygons=site_pixel_polygons,
-                    filename_report="ns_report",
-                    report_ext=".webp",
-                    value_roi=None,
-                    value_ca=None,
-                    min_array_val=0,
-                    cbar_digits=1)
+                           ca_id=ca["id"],
+                           kpi="ns",
+                           result_values=result_values,
+                           image_all=None,
+                           mask_roi=mask_roi_field,
+                           mask_ca=mask_ca,
+                           ref_array=ns_image_total_normalized,
+                           report_palette=linear_gradient(PALETTE_INPUT, n=256)[::-1],
+                           units="N",
+                           palette_min=0,
+                           palette_max=0.5,
+                           clc_values_roi=None,
+                           clc_values_ca=None,
+                           speed_factor=1,
+                           max_val=255 * 2.5,
+                           palette=PALETTE_INPUT,
+                           webp_img=True,
+                           webp_report=True,
+                           input_image_roi=None,
+                           input_image_ca=None,
+                           alignment_point_x=None,
+                           alignment_point_y=None,
+                           filename="ns_total.png",
+                           title_report="Nesting Suitability (NS)",
+                           title_bar="NS",
+                           width_km_ca=width_km_ca,
+                           height_km_ca=height_km_ca,
+                           width_km_roi=width_km_roi,
+                           height_km_roi=height_km_roi,
+                           bounding_box_roi=bounding_box_roi,
+                           site_pixel_polygons=site_pixel_polygons,
+                           filename_report="ns_report",
+                           report_ext=".webp",
+                           value_roi=None,
+                           value_ca=None,
+                           min_array_val=0,
+                           cbar_digits=1)
 
             kpi_configs.append(pa)
             kpi_configs.append(ns)
 
-            for config in kpi_configs:
-                try:
-                    _, value_roi, value_ca = kpi_elements_generation_V2(config)
-                    result_values["CA"][config.kpi.upper()] = value_ca
-                    result_values["ROI"][config.kpi.upper()] = value_roi
-                    if value_roi and value_ca:
-                        result_values["Delta"][config.kpi.upper()] = value_ca - value_roi
-                    mex = f"Created {config.kpi} images"
-                    print(mex)
-                except Exception as e:
-                    raise e
+            # for config in kpi_configs:
+            #     try:
+            #         _, value_roi, value_ca = kpi_elements_generation_V2(config)
+            #         result_values["CA"][config.kpi.upper()] = value_ca
+            #         result_values["ROI"][config.kpi.upper()] = value_roi
+            #         if value_roi and value_ca:
+            #             result_values["Delta"][config.kpi.upper()] = value_ca - value_roi
+            #         mex = f"Created {config.kpi} images"
+            #         print(mex)
+            #     except Exception as e:
+            #         raise e
+
+            with ThreadPoolExecutor(max_workers=max_threads) as executor:
+                futures = [
+                    executor.submit(kpi_elements_generation_V2, config)
+                    for config in kpi_configs
+                ]
+                for future in futures:
+                    try:
+                        _, value_roi, value_ca, kpi = future.result()
+
+                        if kpi != "clc":
+                            result_values["CA"][kpi.upper()] = value_ca
+                            result_values["ROI"][kpi.upper()] = value_roi
+                            if value_roi and value_ca:
+                                result_values["Delta"][kpi.upper()] = value_ca - value_roi
+
+                        mex = f"Created {kpi} images"
+                        print(mex)
+
+                    except Exception as e:
+                        raise e
 
         dict_of_results["result_values"] = result_values
 
