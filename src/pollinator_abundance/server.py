@@ -3,9 +3,13 @@ from .handler import pollinator_abundance_calculation, pollinator_abundance_calc
 
 app = FastAPI()
 
+@app.get("/")
+async def root():
+    return {"message": "App is alive!"}
+
 @app.get("/calculate")
 async def calculate():
-    all_kpis = pollinator_abundance_calculation()
+    all_kpis = pollinator_abundance_calculation_V2()
     result = {
         "CA": all_kpis["result_values"]["CA"]["PA"],
         "ROI": all_kpis["result_values"]["ROI"]["PA"],
@@ -15,5 +19,5 @@ async def calculate():
 
 @app.get("/calculate_all_kpis")
 async def calculate():
-    resultv1 = pollinator_abundance_calculation()
-    resultv2 = pollinator_abundance_calculation_V2()
+    result = pollinator_abundance_calculation_V2()
+    return result["result_values"]
