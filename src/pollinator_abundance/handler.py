@@ -196,16 +196,18 @@ def pollinator_abundance_calculation():
 
     dict_of_results = {}
 
+    # SECTION #1
+
     # Hardcoded inputs
     plantation_id = 9827
     plantations_polygons_id = 9773
     resolution = "low"
-    ca_id = 284085
-    roi_id = 284086
-    override_bee = True
-    how = "local"
-    compute_pa_ns = True
-    compute_only_msa = False
+    ca_id = 284085  # context area
+    roi_id = 284086  # region of interest
+    override_bee = True  # ?
+    how = "local"  # ? use local data
+    compute_pa_ns = True  # ? referred to ROI KPIs
+    compute_only_msa = False  # ? referred to CA KPIs
 
     min_res, multicore = RESOLUTION_MAP.get(resolution, (200, 0))
 
@@ -265,7 +267,7 @@ def pollinator_abundance_calculation():
                 "MSA_LU_ANIMALS": None,
                 "MSA_LU_PLANTS": None,
             },
-            "Delta": {
+            "Delta": {  # ? difference between CA KPIs and ROI KPIs
                 "PA": None,
                 "FA": None,
                 "NP": None,
@@ -276,6 +278,8 @@ def pollinator_abundance_calculation():
             },
         }
 
+        # SECTION #2
+
         # Get ROI and CA Images from saved data
         path_to_np_image_roi = files(pollinator_abundance) / "data/np_image_roi.npy"
         np_image_roi = Image.fromarray(np.load(path_to_np_image_roi))
@@ -283,6 +287,7 @@ def pollinator_abundance_calculation():
         path_to_np_image_ca = files(pollinator_abundance) / "data/np_image_ca.npy"
         np_image_ca = Image.fromarray(np.load(path_to_np_image_ca))
 
+        # actual real-life CA dimensions
         width_km_ca = 5.0
         height_km_ca = 5.0
 
@@ -300,12 +305,12 @@ def pollinator_abundance_calculation():
 
         # Retrieve Site pixel polygons and ROI's bbox
         site_pixel_polygons, bounding_box_roi = polygons_pixel(ca["id"])
-        width_km_roi, height_km_roi = (
+        width_km_roi, height_km_roi = (  # actual real-life ROI dimensions
             round(((bounding_box_roi[2] - bounding_box_roi[0]) * ratio_x / 1000), 1),
             round(((bounding_box_roi[3] - bounding_box_roi[1]) * ratio_y / 1000), 1),
         )
 
-        # Merge ROI and CA images
+        # Merge ROI and CA images -> build one image with ROI onto CA alignment-wise
         site_pixel_polygons = [
             np.array(polygon, dtype=np.int32) for polygon in site_pixel_polygons
         ]
@@ -332,9 +337,15 @@ def pollinator_abundance_calculation():
             f"Setting folder plantation_id/plantations_polygons_id as: {plantation_id}/{plantations_polygons_id}"
         )
 
-        array_pn_roi = image_to_clc_ns_v3(np_image_roi, clc_values_roi, "pn_mean")
-        array_pn_ca = image_to_clc_ns_v3(np_image_ca, clc_values_ca, "pn_mean")
+        # Convert color-scale image to K-value-scale (so a map in which colors are used to display some metric)
+        array_pn_roi = image_to_clc_ns_v3(
+            np_image_roi, clc_values_roi, "pn_mean"
+        )  # ? maps ROI map colors to pn_mean values (Pollinator Abundance)
+        array_pn_ca = image_to_clc_ns_v3(
+            np_image_ca, clc_values_ca, "pn_mean"
+        )  # ? maps CA map colors to pn_mean values (Pollinator Abundance)
 
+        # merge K-value-scale images
         array_pn = merge_roi_an_ca_array(
             array_pn_roi, array_pn_ca, alignment_point_x, alignment_point_y
         )
@@ -346,6 +357,7 @@ def pollinator_abundance_calculation():
         mex = "Retrieved CLC data from DB"
         print(mex)
 
+        # Generates two masks: one has a 1 where the ROI is, 0 otherwise, the other is the opposite. NaN values are removed (points with no data).
         mask_roi_field, mask_ca = generate_roi_and_ca_mask(
             array_pn=array_pn,
             site_pixel_polygons=site_pixel_polygons,
@@ -354,10 +366,12 @@ def pollinator_abundance_calculation():
         dict_of_results["mask_roi_field"] = mask_roi_field
         dict_of_results["mask_ca"] = mask_ca
 
+        # Section #3
+
         if not compute_only_msa:
             try:
                 ### CLC
-                kpi_elements_generation(
+                _, value_roi, value_ca = kpi_elements_generation(
                     roi_id=roi["id"],
                     ca_id=ca["id"],
                     kpi="clc",
@@ -406,7 +420,7 @@ def pollinator_abundance_calculation():
             ### NECTAR POTENTIAL
 
             try:
-                kpi_elements_generation(
+                _, value_roi, value_ca = kpi_elements_generation(
                     roi_id=roi["id"],
                     ca_id=ca["id"],
                     kpi="np",
@@ -446,6 +460,11 @@ def pollinator_abundance_calculation():
                     min_array_val=0,
                     cbar_digits=1,
                 )
+
+                result_values["CA"]["NP"] = value_ca
+                result_values["ROI"]["NP"] = value_roi
+                if value_roi and value_ca:
+                    result_values["Delta"]["NP"] = value_ca - value_roi
             except Exception as e:
                 raise e
 
@@ -455,7 +474,7 @@ def pollinator_abundance_calculation():
             ### FLOWER AVAILABILITY
 
             try:
-                image_url_fa = kpi_elements_generation(
+                image_url_fa, value_roi, value_ca = kpi_elements_generation(
                     roi_id=roi["id"],
                     ca_id=ca["id"],
                     kpi="fa",
@@ -495,6 +514,11 @@ def pollinator_abundance_calculation():
                     min_array_val=0,
                     cbar_digits=1,
                 )
+
+                result_values["CA"]["FA"] = value_ca
+                result_values["ROI"]["FA"] = value_roi
+                if value_roi and value_ca:
+                    result_values["Delta"]["FA"] = value_ca - value_roi
             except Exception as e:
                 raise e
 
@@ -504,7 +528,7 @@ def pollinator_abundance_calculation():
         ### MSA (LU, all taxonomic groups)
 
         try:
-            kpi_elements_generation(
+            _, value_roi, value_ca = kpi_elements_generation(
                 roi_id=roi["id"],
                 ca_id=ca["id"],
                 kpi="msa",
@@ -544,6 +568,11 @@ def pollinator_abundance_calculation():
                 min_array_val=0,
                 cbar_digits=1,
             )
+
+            result_values["CA"]["MSA"] = value_ca
+            result_values["ROI"]["MSA"] = value_roi
+            if value_roi and value_ca:
+                result_values["Delta"]["MSA"] = value_ca - value_roi
         except Exception as e:
             raise e
         mex = "Created MSA images"
@@ -551,7 +580,7 @@ def pollinator_abundance_calculation():
 
         ### MSA_LU_animals
         try:
-            kpi_elements_generation(
+            _, value_roi, value_ca = kpi_elements_generation(
                 roi_id=roi["id"],
                 ca_id=ca["id"],
                 kpi="msa_lu_animals",
@@ -591,6 +620,11 @@ def pollinator_abundance_calculation():
                 min_array_val=0,
                 cbar_digits=1,
             )
+
+            result_values["CA"]["MSA_LU_ANIMALS"] = value_ca
+            result_values["ROI"]["MSA_LU_ANIMALS"] = value_roi
+            if value_roi and value_ca:
+                result_values["Delta"]["MSA_LU_ANIMALS"] = value_ca - value_roi
         except Exception as e:
             raise e
         mex = "Created MSA_LU Animals images"
@@ -599,7 +633,7 @@ def pollinator_abundance_calculation():
         ### MSA_LU_plants
 
         try:
-            kpi_elements_generation(
+            _, value_roi, value_ca = kpi_elements_generation(
                 roi_id=roi["id"],
                 ca_id=ca["id"],
                 kpi="msa_lu_plants",
@@ -639,6 +673,11 @@ def pollinator_abundance_calculation():
                 min_array_val=0,
                 cbar_digits=1,
             )
+
+            result_values["CA"]["MSA_LU_PLANTS"] = value_ca
+            result_values["ROI"]["MSA_LU_PLANTS"] = value_roi
+            if value_roi and value_ca:
+                result_values["Delta"]["MSA_LU_PLANTS"] = value_ca - value_roi
         except Exception as e:
             raise e
         mex = "Created MSA_LU Plants images"
@@ -726,7 +765,7 @@ def pollinator_abundance_calculation():
                     pa_bee_image_n_normalized
                 )
 
-                _ = kpi_elements_generation(
+                _, value_roi, value_ca = kpi_elements_generation(
                     roi_id=roi["id"],
                     ca_id=ca["id"],
                     kpi=f"pa_{ns}",
@@ -773,7 +812,7 @@ def pollinator_abundance_calculation():
                     ns_images_n_normalized
                 )
 
-                kpi_elements_generation(
+                _, value_roi, value_ca = kpi_elements_generation(
                     roi_id=roi["id"],
                     ca_id=ca["id"],
                     kpi=f"ns_{ns}",
@@ -827,7 +866,7 @@ def pollinator_abundance_calculation():
             dict_of_results["pa_image_total_normalized"] = pa_image_total_normalized
 
             try:
-                kpi_elements_generation(
+                _, value_roi, value_ca = kpi_elements_generation(
                     roi_id=roi["id"],
                     ca_id=ca["id"],
                     kpi="pa",
@@ -867,6 +906,11 @@ def pollinator_abundance_calculation():
                     min_array_val=0,
                     cbar_digits=1,
                 )
+
+                result_values["CA"]["PA"] = value_ca
+                result_values["ROI"]["PA"] = value_roi
+                if value_roi and value_ca:
+                    result_values["Delta"]["PA"] = value_ca - value_roi
             except Exception as e:
                 raise e
 
@@ -878,7 +922,7 @@ def pollinator_abundance_calculation():
             dict_of_results["ns_image_total_normalized"] = ns_image_total_normalized
 
             try:
-                kpi_elements_generation(
+                _, value_roi, value_ca = kpi_elements_generation(
                     roi_id=roi["id"],
                     ca_id=ca["id"],
                     kpi="ns",
@@ -918,6 +962,10 @@ def pollinator_abundance_calculation():
                     min_array_val=0,
                     cbar_digits=1,
                 )
+
+                result_values["CA"]["NS"] = value_ca
+                result_values["ROI"]["NS"] = value_roi
+                result_values["Delta"]["NS"] = value_ca - value_roi
             except Exception as e:
                 raise e
 
