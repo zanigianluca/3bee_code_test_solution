@@ -205,10 +205,10 @@ def pollinator_abundance_calculation():
     resolution = "low"
     ca_id = 284085  # context area
     roi_id = 284086  # region of interest
-    override_bee = True  # ?
-    how = "local"  # ? use local data
-    compute_pa_ns = True  # ? referred to ROI KPIs
-    compute_only_msa = False  # ? referred to CA KPIs
+    override_bee = True
+    how = "local"
+    compute_pa_ns = True
+    compute_only_msa = False
 
     min_res, multicore = RESOLUTION_MAP.get(resolution, (200, 0))
 
@@ -268,7 +268,7 @@ def pollinator_abundance_calculation():
                 "MSA_LU_ANIMALS": None,
                 "MSA_LU_PLANTS": None,
             },
-            "Delta": {  # ? difference between CA KPIs and ROI KPIs
+            "Delta": {
                 "PA": None,
                 "FA": None,
                 "NP": None,
@@ -341,10 +341,10 @@ def pollinator_abundance_calculation():
         # Convert color-scale image to K-value-scale (so a map in which colors are used to display some metric)
         array_pn_roi = image_to_clc_ns_v3(
             np_image_roi, clc_values_roi, "pn_mean"
-        )  # ? maps ROI map colors to pn_mean values (Pollinator Abundance)
+        )
         array_pn_ca = image_to_clc_ns_v3(
             np_image_ca, clc_values_ca, "pn_mean"
-        )  # ? maps CA map colors to pn_mean values (Pollinator Abundance)
+        )
 
         # merge K-value-scale images
         array_pn = merge_roi_an_ca_array(
@@ -999,10 +999,10 @@ def pollinator_abundance_calculation_V2():
     resolution = "low"
     ca_id = 284085  # context area
     roi_id = 284086  # region of interest
-    override_bee = True  # ?
-    how = "local"  # ? use local data
-    compute_pa_ns = True  # ? referred to ROI KPIs
-    compute_only_msa = False  # ? referred to CA KPIs
+    override_bee = True
+    how = "local"
+    compute_pa_ns = True
+    compute_only_msa = False
 
     min_res, multicore = RESOLUTION_MAP.get(resolution, (200, 0))
 
@@ -1062,7 +1062,7 @@ def pollinator_abundance_calculation_V2():
                 "MSA_LU_ANIMALS": None,
                 "MSA_LU_PLANTS": None,
             },
-            "Delta": {  # ? difference between CA KPIs and ROI KPIs
+            "Delta": {
                 "PA": None,
                 "FA": None,
                 "NP": None,
@@ -1135,10 +1135,10 @@ def pollinator_abundance_calculation_V2():
         # Convert color-scale image to K-value-scale (so a map in which colors are used to display some metric)
         array_pn_roi = image_to_clc_ns_v3(
             np_image_roi, clc_values_roi, "pn_mean"
-        )  # ? maps ROI map colors to pn_mean values (Pollinator Abundance)
+        )
         array_pn_ca = image_to_clc_ns_v3(
             np_image_ca, clc_values_ca, "pn_mean"
-        )  # ? maps CA map colors to pn_mean values (Pollinator Abundance)
+        )
 
         # merge K-value-scale images
         array_pn = merge_roi_an_ca_array(
@@ -1410,24 +1410,6 @@ def pollinator_abundance_calculation_V2():
         kpi_configs.append(msa_lu_animals)
         kpi_configs.append(msa_lu_plants)
 
-        # CALCULATE KPIS
-
-        # for config in kpi_configs:
-        #     try:
-        #         _, value_roi, value_ca = kpi_elements_generation_V2(config)
-        #
-        #         if config.kpi != "clc":
-        #             result_values["CA"][config.kpi.upper()] = value_ca
-        #             result_values["ROI"][config.kpi.upper()] = value_roi
-        #             if value_roi and value_ca:
-        #                 result_values["Delta"][config.kpi.upper()] = value_ca - value_roi
-        #
-        #         mex = f"Created {config.kpi} images"
-        #         print(mex)
-        #
-        #     except Exception as e:
-        #         raise e
-
         max_threads = 2
         with ThreadPoolExecutor(max_workers=max_threads) as executor:
             futures = [
@@ -1450,8 +1432,6 @@ def pollinator_abundance_calculation_V2():
                 except Exception as e:
                     raise e
 
-        # Section #3
-
         # According to parameter 'compute_pa_ns', compute or skip PA and NS
         if compute_pa_ns is True:
             data_io = StringIO(DATA_BEE_STR)
@@ -1463,7 +1443,6 @@ def pollinator_abundance_calculation_V2():
             pa_bees_image_ns = {ns_col: None for ns_col in NS_COLUMNS}
             ns_images = {ns_col: None for ns_col in NS_COLUMNS}
             total_ns_count = {ns_col: 0 for ns_col in NS_COLUMNS}
-            max_threads = 2
             total_bee = 0
 
             dict_of_results["bee_data"] = bee_data
@@ -1623,12 +1602,6 @@ def pollinator_abundance_calculation_V2():
                 kpi_configs.append(pa_x)
                 kpi_configs.append(ns_x)
 
-                # for config in kpi_configs:
-                #     try:
-                #         _, value_roi, value_ca, __ = kpi_elements_generation_V2(config)
-                #     except Exception as e:
-                #         raise e
-
                 with ThreadPoolExecutor(max_workers=max_threads) as executor:
                     futures = [
                         executor.submit(kpi_elements_generation_V2, config)
@@ -1737,18 +1710,6 @@ def pollinator_abundance_calculation_V2():
 
             kpi_configs.append(pa)
             kpi_configs.append(ns)
-
-            # for config in kpi_configs:
-            #     try:
-            #         _, value_roi, value_ca = kpi_elements_generation_V2(config)
-            #         result_values["CA"][config.kpi.upper()] = value_ca
-            #         result_values["ROI"][config.kpi.upper()] = value_roi
-            #         if value_roi and value_ca:
-            #             result_values["Delta"][config.kpi.upper()] = value_ca - value_roi
-            #         mex = f"Created {config.kpi} images"
-            #         print(mex)
-            #     except Exception as e:
-            #         raise e
 
             with ThreadPoolExecutor(max_workers=max_threads) as executor:
                 futures = [
